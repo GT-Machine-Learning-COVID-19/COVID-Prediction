@@ -18,7 +18,7 @@ We plan on using a few key datasets in order to predict future COVID-19 cases. W
 We're going to have to get the intersect of our databases that we're using. For time series analysis we can format the data so that we use prior time steps to predict next time steps ([sliding window method](https://machinelearningmastery.com/time-series-forecasting-supervised-learning/) ).
 
 ### Feature Selection (maybe with Unsupervised Learning)
-Tbh we don't have many features as is so I don't know how if we'll need 
+Tbh we don't have many features tho do we need unsupervised learning?
 
 ### Forecasting with Supervised Learning
 Maybe Recurrent Neural Networks (like LSTM)
