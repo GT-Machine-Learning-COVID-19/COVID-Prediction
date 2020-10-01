@@ -1,6 +1,6 @@
 # CS4641 - New COVID Case Prediction
 ## Team Members: Matt Chen, Chima Okechukwu, Trevor Pope, and Sho Szczepaniuk
-Brief description here
+Our society is facing an unprecedented pandemic, and we are interested in applying machine learning techniques to predict future COVID cases in counties across the US.
 
 ## Summary Figure
 One infographic that summarizes our goal apparently (still to come)
