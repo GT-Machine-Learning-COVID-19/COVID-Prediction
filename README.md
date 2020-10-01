@@ -9,8 +9,7 @@ One infographic that summarizes our goal apparently (still to come)
 We mainly have to do this part
 
 ## Methods
-Talk about our expected methods of doing so. 
-I think we have to do this part too
+and this part
 
 ### Datasets
 We plan on using a few key datasets in order to predict future COVID-19 cases. We plan on using [Google's Population Dataset](https://www.google.com/publicdata/explore?ds=kf7tgg1uo9ude_&hl=en&dl=en) as we believe that population statistics and economic indicators such as the unemployment rate will be good features for our model.
