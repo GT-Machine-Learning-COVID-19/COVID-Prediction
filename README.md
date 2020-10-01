@@ -17,7 +17,7 @@ We're going to have to get the intersect of our databases that we're using. For 
 ### Feature Selection (maybe with Unsupervised Learning)
 Tbh we don't have many features as is so I don't know how if we'll need 
 
-### Forescasting with Supervised Learning
+### Forecasting with Supervised Learning
 Maybe Recurrent Neural Networks (like LSTM)
 We can even use simpler Supervised Learning if we use sliding window.
 
