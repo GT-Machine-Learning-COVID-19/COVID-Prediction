@@ -1,4 +1,4 @@
-# CS4641 - COVID-Prediction
+# CS4641 - New COVID Case Prediction
 ## Team Members: Matt Chen, Chima Okechukwu, Trevor Pope, and Sho Szczepaniuk
 Brief description here
 
