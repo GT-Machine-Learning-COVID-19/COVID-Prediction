@@ -3,7 +3,7 @@
 Brief description here
 
 ## Summary Figure
-One infographic that summarizes our goal apparently
+One infographic that summarizes our goal apparently (still to come)
 
 ## Introduction and Background
 We mainly have to do this part
