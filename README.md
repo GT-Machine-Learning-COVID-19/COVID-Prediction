@@ -11,8 +11,12 @@ We mainly have to do this part
 ## Methods
 Talk about our expected methods of doing so. 
 I think we have to do this part too
+
+### Datasets
+We plan on using a few key datasets in order to predict future COVID-19 cases. We plan on using [Google's Population Dataset](https://www.google.com/publicdata/explore?ds=kf7tgg1uo9ude_&hl=en&dl=en) as we believe that population statistics and economic indicators such as the unemployment rate will be good features for our model.
+
 ### Data Sanitization and Preprocessing
-We're going to have to get the intersect of our databases that we're using. For time series analysis we can format the data so that we use prior time steps to predict next time steps (sliding window method: https://machinelearningmastery.com/time-series-forecasting-supervised-learning/).
+We're going to have to get the intersect of our databases that we're using. For time series analysis we can format the data so that we use prior time steps to predict next time steps ([sliding window method](https://machinelearningmastery.com/time-series-forecasting-supervised-learning/) ).
 
 ### Feature Selection (maybe with Unsupervised Learning)
 Tbh we don't have many features as is so I don't know how if we'll need 
