@@ -27,9 +27,11 @@ We can even use simpler Supervised Learning if we use sliding window.
 
 ## Results
 Describe results we're hoping to acheive
+
 We're hoping to create a model that has >80% accuracy at predicting the amount of COVID cases 2 days, 5 days, and 1 week into the future for a given specific county. 
 ## Discussion 
 Describe what the best outcome would be 
+
 Ideally, we would create a model that allows for communities around the United States to better prepare for COVID outbreaks given the current status of the country. We believe that our model would be best suited in serving marginalized groups, in particular those who may not have the means to properly prepare for COVID during all stages of the upcoming pandemic. With a model like ours, we would be able to forecast risk for these types of individuals and allow them to make educated decisions regarding the pandemic. From an institutional standpoint, a model like ours would allow for government at all levels to better equip communities in fighting the spread of the virus. If our model properly maps the next big potential hotspots, ideally, there is ample time for these types of institutions to issue warnings, stockpile PPE, or do any number of functions to lessen the severity of the outbreak.
 Past COVID, we believe our model may be extended to other health crisis, such as food or water shortages, as well as other pandemics.
 ## References
