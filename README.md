@@ -5,7 +5,7 @@ Our society is facing an unprecedented pandemic, and we are interested in applyi
 
 ## Methods
 ### Datasets
-We plan on using a few key datasets in order to predict future COVID-19 cases. We plan on using [Google's Population Dataset](https://www.google.com/publicdata/explore?ds=kf7tgg1uo9ude_&hl=en&dl=en) as we believe that population statistics and economic indicators such as the unemployment rate will be good features for our model.
+We plan on using a few key datasets in order to predict future COVID-19 cases. For COVID-19 data, we will be using [John Hopkin's COVID-19 Dataset](https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data). It contains time series data for both COVID-19 Deaths and COVID-19 Cases at a county level and is updated daily. We plan on using [Google's Population Dataset](https://www.google.com/publicdata/explore?ds=kf7tgg1uo9ude_&hl=en&dl=en) as we believe that population statistics and economic indicators such as the unemployment rate will be good features for our model.
 
 ### Data Sanitization and Preprocessing
 We're going to have to get the intersect of our databases that we're using. For time series analysis we can format the data so that we use prior time steps to predict next time steps ([sliding window method](https://machinelearningmastery.com/time-series-forecasting-supervised-learning/) ).
