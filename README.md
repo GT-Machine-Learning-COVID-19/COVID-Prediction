@@ -1,13 +1,9 @@
 # CS4641 - New COVID-19 Case Prediction
 ## Team Members: Matt Chen, Chima Okechukwu, Trevor Pope, and Sho Szczepaniuk
+## Introduction and Background
 Our society is facing an unprecedented pandemic, and we are interested in applying machine learning techniques to predict future COVID-19 cases in counties across the US. The United States currently has over 200,000 deaths and over 7.5 million coronavirus cases [1]. We will use unsupervised and supervised learning to predict a county's 2-day, 5-day, and 1-week COVID-19 cases. 
 
-## Introduction and Background
-We mainly have to do this part
-
 ## Methods
-and this part
-
 ### Datasets
 We plan on using a few key datasets in order to predict future COVID-19 cases. We plan on using [Google's Population Dataset](https://www.google.com/publicdata/explore?ds=kf7tgg1uo9ude_&hl=en&dl=en) as we believe that population statistics and economic indicators such as the unemployment rate will be good features for our model.
 
