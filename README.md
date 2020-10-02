@@ -4,7 +4,7 @@
 Our society is facing an unprecedented pandemic, and we are interested in applying machine learning techniques to predict future COVID-19 cases in counties across the US. The United States currently has over 200,000 deaths and over 7.5 million coronavirus cases [1]. We will use unsupervised and supervised learning to predict a county's 2-day, 5-day, and 1-week COVID-19 cases. 
 
 ## Summary Figure
-We need this too apparently
+Image: courtesy Urban Footprint
 ![prediction of hotspots](https://images.fastcompany.net/image/upload/w_1153,ar_16:9,c_fill,g_auto,f_auto,q_auto,fl_lossy/wp-cms/uploads/2020/08/p-1-90540870-these-states-are-likely-to-see-the-next-surge-in-covid-cases.jpg)
 ## Methods
 #### Unsupervised
