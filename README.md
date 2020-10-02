@@ -27,6 +27,7 @@ We can even use simpler Supervised Learning if we use sliding window.
 
 ## Results
 Describe results we're hoping to acheive
+We're hoping to create a model that has >80% accuracy at predicting the amount of COVID cases 2 days, 5 days, and 1 week into the future for a given specific county. 
 ## Discussion 
 Describe what the best outcome would be 
 ## References
