@@ -1,6 +1,6 @@
 # CS4641 - New COVID-19 Case Prediction
 ## Team Members: Matt Chen, Chima Okechukwu, Trevor Pope, and Sho Szczepaniuk
-Our society is facing an unprecedented pandemic, and we are interested in applying machine learning techniques to predict future COVID-19 cases in counties across the US. We will use unsupervised and supervised learning to predict a county's 2-day, 5-day, and 1-week COVID-19 cases.
+Our society is facing an unprecedented pandemic, and we are interested in applying machine learning techniques to predict future COVID-19 cases in counties across the US. The United States currently has over 200,000 deaths and over 7.5 million coronavirus cases [1]. We will use unsupervised and supervised learning to predict a county's 2-day, 5-day, and 1-week COVID-19 cases. 
 
 ## Summary Figure
 One infographic that summarizes our goal apparently (at a later date though)
@@ -31,3 +31,4 @@ Still to come!
 Still to come!
 
 ## References
+[1] https://www.worldometers.info/coronavirus/country/us/
