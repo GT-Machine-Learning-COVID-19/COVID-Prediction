@@ -5,6 +5,7 @@ Our society is facing an unprecedented pandemic, and we are interested in applyi
 
 ## Summary Figure
 We need this too apparently
+![prediction of hotspots](https://images.fastcompany.net/image/upload/w_1153,ar_16:9,c_fill,g_auto,f_auto,q_auto,fl_lossy/wp-cms/uploads/2020/08/p-1-90540870-these-states-are-likely-to-see-the-next-surge-in-covid-cases.jpg)
 ## Methods
 #### Unsupervised
 We aim to find the most impactful features using Principal Component Analysis, in order to get a smaller, more powerful model. Beacuse we are dealing with a problem on the scale on the entire United States, there will be a large multitude of features across counties that need to be pared down into only the most critial ones. In addition to the Google Population dataset listed below, we are also exploring the usage of various US Census issued datasets, as well as unemployment by county, which is tracked by the month. The biggest challege will be to migrate these geographical datasets into one comprehensive, geographical dataset that is able to map numerous features to the United States and allow us to compare COVID cases to them.
