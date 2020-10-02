@@ -25,6 +25,10 @@ Tbh we don't have many features tho do we need unsupervised learning?
 Maybe Recurrent Neural Networks (like LSTM)
 We can even use simpler Supervised Learning if we use sliding window.
 
+## Results
+Describe results we're hoping to acheive
+## Discussion 
+Describe what the best outcome would be 
 ## References
 [1] "United States Coronavirus Cases," WorldoMeters, Accessed Oct 1, 2020. [Online] Available: https://www.worldometers.info/coronavirus/country/us/
 
