@@ -31,4 +31,4 @@ Still to come!
 Still to come!
 
 ## References
-[1] https://www.worldometers.info/coronavirus/country/us/
+[1] "United States Coronavirus Cases," WorldoMeters, Accessed October 1, 2020 https://www.worldometers.info/coronavirus/country/us/
