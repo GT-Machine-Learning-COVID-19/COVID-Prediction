@@ -3,7 +3,7 @@
 ## Introduction and Background
 Our society is facing an unprecedented pandemic, and we are interested in applying machine learning techniques to predict future COVID-19 cases in counties across the US. The United States currently has over 200,000 deaths and over 7.5 million coronavirus cases [1]. We will use unsupervised and supervised learning to predict a county's 2-day, 5-day, and 1-week COVID-19 cases. 
 
-## Summary Graphic
+## Summary Figure
 We need this too apparently
 ## Methods
 #### Unsupervised
