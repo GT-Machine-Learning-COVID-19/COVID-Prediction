@@ -7,10 +7,10 @@ Our society is facing an unprecedented pandemic, and we are interested in applyi
 Image: courtesy Urban Footprint
 ![prediction of hotspots](https://images.fastcompany.net/image/upload/w_1153,ar_16:9,c_fill,g_auto,f_auto,q_auto,fl_lossy/wp-cms/uploads/2020/08/p-1-90540870-these-states-are-likely-to-see-the-next-surge-in-covid-cases.jpg)
 ## Methods
-#### Unsupervised
+### Unsupervised
 We aim to find the most impactful features using Principal Component Analysis, in order to get a smaller, more powerful model. Beacuse we are dealing with a problem on the scale on the entire United States, there will be a large multitude of features across counties that need to be pared down into only the most critial ones. In addition to the Google Population dataset listed below, we are also exploring the usage of various US Census issued datasets, as well as unemployment by county, which is tracked by the month. The biggest challege will be to migrate these geographical datasets into one comprehensive, geographical dataset that is able to map numerous features to the United States and allow us to compare COVID cases to them.
 
-#### Supervised
+### Supervised
 Usually, most Covid-19 predictions are based entirely on time series techniques such as Exponential Smoothing or ARIMA models, and don't bring in other features except the number of cases over time. Additionally, these models must be precisely tuned and can be difficult to get a very accurate prediciton. While we will experiment with these techniques, we ultimately want to get a more robust prediction based on several features (specified below). We want to try some multilinear regression methods, as well as some deep learning methods such as RNN and feedback networks like LSTM, to give us more predictive power and find complex relationships among features. Since most Covid-19 data is presented as a timeseries, we would also like to try some sliding-window methods, where we consider several windows of time as discrete data points (i.e. days 1-7, 2-8, 3-9, and so on), which tend to produce good results when using in combination with neural network models. [2]
 
 ### Datasets
