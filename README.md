@@ -19,22 +19,16 @@ We plan on using a few key datasets in order to predict future COVID-19 cases. F
 ### Data Sanitization and Preprocessing
 We're going to have to get the intersect of our databases that we're using. For time series analysis we can format the data so that we use prior time steps to predict next time steps ([sliding window method](https://machinelearningmastery.com/time-series-forecasting-supervised-learning/) ).
 
-### Feature Selection (maybe with Unsupervised Learning)
+### Feature Selection 
 Within the various Google Datasets, at least 50 different domestic features are covered by the dataset. We anticipate that many of these features have little to do with COVID 19 and can be thrown away. To determine which features will be core to the creation of our model, we will be using Principal Compnent Analysis to determine which features have the highest relation to COVID case growth in the United States. Using the results from this portion of the project, we will be able to be more flexible with the methods we use as well as create a higher efficiency model when all is said and done. 
 
-### Forecasting with Supervised Learning
-Maybe Recurrent Neural Networks (like LSTM)
-We can even use simpler Supervised Learning if we use sliding window.
-
 ## Results
-Describe results we're hoping to acheive
-
 We're hoping to create a model that has >80% accuracy at predicting the amount of COVID cases 2 days, 5 days, and 1 week into the future for a given specific county. 
-## Discussion 
-Describe what the best outcome would be 
 
+## Discussion 
 Ideally, we would create a model that allows for communities around the United States to better prepare for COVID outbreaks given the current status of the country. We believe that our model would be best suited in serving marginalized groups, in particular those who may not have the means to properly prepare for COVID during all stages of the upcoming pandemic. With a model like ours, we would be able to forecast risk for these types of individuals and allow them to make educated decisions regarding the pandemic. From an institutional standpoint, a model like ours would allow for government at all levels to better equip communities in fighting the spread of the virus. If our model properly maps the next big potential hotspots, ideally, there is ample time for these types of institutions to issue warnings, stockpile PPE, or do any number of functions to lessen the severity of the outbreak.
 Past COVID, we believe our model may be extended to other health crisis, such as food or water shortages, as well as other pandemics.
+
 ## References
 [1] "United States Coronavirus Cases," WorldoMeters, Accessed Oct 1, 2020. [Online] Available: https://www.worldometers.info/coronavirus/country/us/
 
