@@ -1,5 +1,27 @@
-# CS4641 - New COVID-19 Case Prediction
+# CS4641 - New COVID-19 Case Prediction Midterm Report -- Unsupervised Learning
 ## Team Members: Matt Chen, Chima Okechukwu, Trevor Pope, and Sho Szczepaniuk
+
+## Introduction and Background
+What are our goals with unsupervised learning portion
+## Data Management
+### Data Used
+What data did we think was relevant
+### Data Cleaning
+What did we remove from the data? What did we do to the case totals?
+## Clustering
+TODO STILL, sliding window
+## Data Analysis & Dimensionality Reduction
+### Correlation Matrix
+What does the correlation matrix tell us?
+### Principal Component Analysis
+What does PCA tell us?
+## Conclusion
+What did we learn from the unsupervised learning portion?
+
+
+
+| Old report stuff
+V
 ## Introduction and Background
 Our society is facing an unprecedented pandemic, and we are interested in applying machine learning techniques to predict future COVID-19 cases in counties across the US. The United States currently has over 200,000 deaths and over 7.5 million coronavirus cases [1]. We will use unsupervised and supervised learning to predict a county's 2-day, 5-day, and 1-week COVID-19 cases. 
 
