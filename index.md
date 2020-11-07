@@ -15,7 +15,7 @@ We want to cluster similar counties together based on the features we gathered. 
 *Results and Implications*
 For clustering, we decided to cluster with the K-Means algorithm. The elbow method suggests that around 20 or so clusters would be “optimal”, but in our case, we aren’t necessarily trying to minimize clusters. Too few clusters and we run the risk of grouping together dissimilar counties, so we decided to go with a safer estimate of around 28 counties, as at this point the change in distortion became less than 100 per additional cluster.
 
-![clustering](https://github.com/GT-Machine-Learning-COVID-19/COVID-Prediction/blob/gh-pages/elbow.png)
+![clustering](/elbow.png)
 
 We found that after K=6, the K-Means algorithm will isolate singular counties into their own clusters. For example, after K=7, New York City is always placed into its own cluster. This brings some challenges for PCA, which requires N > 1 to run, but on its own isn’t a bad thing. New York being as big as it is likely deserves its own model in order to get an accurate prediction. 
 
