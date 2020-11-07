@@ -24,7 +24,7 @@ We found that after K=6, the K-Means algorithm will isolate singular counties in
 We calculated the standard correlation coefficient (also referred to as Pearson’s r) between all the pairs of attributes using scikit-learn’s corr() method. The figure below summarises the result. 
 Overall, we were mostly interested with how much each attribute correlates with the mean of the time series data in the last 2 weeks. A summary of that result is shown below.
 
-![correlation between covid and features](https://github.com/GT-Machine-Learning-COVID-19/COVID-Prediction/blob/gh-pages/covid_corr.png)
+![correlation between covid and features](/covid_corr.png)
 
 As shown, the population in a county and the amount of international migration show a strong positive correlation with the average number of reported cases. This suggests that the average number of covid cases tends to go up in more populated areas. On the other hand, some features as the ‘Percent Under Diploma’ have almost no effect on covid reporting. Removing features as this might improve the accuracy of the future model. We repeated the process with standardised data. The correlation matrix is unaffected by standardisation of the data. 
 ### Principal Component Analysis
@@ -32,14 +32,14 @@ As shown, the population in a county and the amount of international migration s
 Although there were 17 features in the socio-economic features dataset, we believed that Principal Component Analysis would serve as a useful tool to reduce the overall dimensionality of our dataset.
 Because many of our features are intuitively and mathematically related to one other, we felt that PCA would be a valuable form of unsupervised learning to run on our dataset. For example, logically speaking, population, migration, and birth rates may possibly be collapsed into one dimension, and mathematically speaking, there is almost a perfect correlation between housing density and population density (as seen in the correlation matrix between the features below). 
 
-![correlation matrix features](https://github.com/GT-Machine-Learning-COVID-19/COVID-Prediction/blob/gh-pages/feature_corr.png)
+![correlation matrix features](/feature_corr.png)
 
 Therefore, there was value in running PCA to reduce the dimensionality of our overall dataset, which may improve the efficiency of our overall model during the supervised portion.
 Prior to running PCA, we standardized the data set (as unscaled data will likely be dominated by a single component). To run PCA, we used the built in functions included in the sklearn library. From there, we can determine the number of principal components compared to their respective explained variance. We can determine the relative importance of the features in each principal component using the magnitude of the corresponding values in the eigenvectors. The heatmaps are created using the seaborn library.
 
 *Results*
 
-![% variance preserved](https://github.com/GT-Machine-Learning-COVID-19/COVID-Prediction/blob/gh-pages/variancemaintained.png)
+![% variance preserved](/variancemaintained.png)
 
 % Variance preserved by Principal Component
 1. 24.97531181876283% of variance explained by 1 principal component
@@ -63,7 +63,7 @@ Prior to running PCA, we standardized the data set (as unscaled data will likely
 
 Feature Contribution to each Principal Component
 
-![feature to each pc](https://github.com/GT-Machine-Learning-COVID-19/COVID-Prediction/blob/gh-pages/feature_contr.png)
+![feature to each pc](/feature_contr.png)
 
 By principal component, the most important feature is:
 1. Percent Poverty
@@ -90,7 +90,7 @@ Running PCA allows us to reduce the dimensionality from 17 to 13, a reduction of
 The first principal component was primarily explained by percent poverty levels, implying that percent poverty is a distinguishing factor between counties. Similarly, the population was a large factor in contributing to the first and second principal components, which makes sense, as more populous counties will naturally have a different makeup than smaller counties.
 After completing PCA on only the feature dataset, we realized that we had little intuition into why clusters were clustered as they were. So, to determine what features were most important to each cluster, we decided to run PCA once more on each cluster out of the 28. Since PCA only works when run on more than one county, the following results are for all of the clusters which contain multiple counties. We decided to employ a similar strategy as to how we interpreted the principal components for the overall feature dataset by listing the feature that contributed most to the first three principal components of each cluster.
 
-![top 3 per pc per cluster](https://github.com/GT-Machine-Learning-COVID-19/COVID-Prediction/blob/gh-pages/top_3.png)
+![top 3 per pc per cluster](/top_3.png)
 
 Overall, only 4 features on this chart show up multiple times, which are: Mask Mandate, Percent Poverty, Percent Ethnic, and Population, implying that these four features are likely the most important ones in the dataset when it comes to contributing to the variance within clusters of counties. While we originally anticipated that clusters would be defined by unique and different features, this result makes sense as well — from PCA run on all of the counties, it was evident that most of the feature space was relevant somehow to the variance of the dataset (99% variance was not attained until 14 features). Therefore, while these four features showed up the most in terms of being the highest contributor to the first three principal components, it must be acknowledged that the other features also play a significant role in the variance of the dataset and our clusters as a whole.
  
