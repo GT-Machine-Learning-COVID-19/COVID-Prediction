@@ -171,7 +171,7 @@ When creating the LSTM, we had read online that adding dropout to our LSTM layer
 
 The results of the LSTM RMSE and MAE data indicate that our LSTM Recurrent Neural Network model is ineffective or inaccurate. Considering that the LSTM is a very common and effective RNN for time-series data, it is indicative that we did not tune the hyperparameters correctly, or did not have adequate data. A graph of the LSTM model and its prediction that uses the whole dataset is pictured below.
 
-![activation func](/lstm.png)
+![activation func](/LSTM.png)
 
 Similar to the ARIMA model, we predicted the past 14 days with this model, and observed a RMSE of 40169.25 for the general model, and an average RMSE of 36706.69 for models created for every one of the 28 clusters generated with the KMeans algorithm used in the unsupervised learning portion. The MAE for the general model was 30959.34 and the average for the cluster models was 25432.09.  It is important to note though that it was an improvement from the baseline RMSE of almost 129,000, but is significantly more than the RMSEs for the ARIMA models and Gradient Boosting models.
 
