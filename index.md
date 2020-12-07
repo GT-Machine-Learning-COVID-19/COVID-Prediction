@@ -1,11 +1,12 @@
 # Introduction and Background
-The goal of this project is to be able to predict COVID-19 spikes or hotspots across the various counties in the State. The model makes the prediction using population data, social determinants, and current COVID-19 spread data, ideally facilitating an improvement in the response for affected areas. This report details the work on this project. The following sections discuss the datasets used, the unsupervised learning methods, the supervised learning methods, and closes with a conclusion.
+The goal of this project is to be able to predict COVID-19 spikes or hotspots across the various counties in the State. The model makes the prediction using population data, social determinants, and current COVID-19 spread data. This report details the work on this project. The following sections discuss the datasets used, the unsupervised learning methods, the supervised learning methods, and closes with a conclusion.
 
 Our focus on unsupervised learning was to gain as much insight into the underlying distribution and structure of COVID-19 cases in different counties. We analyzed the dataset and identified redundant features using PCA and a correlation matrix. This was to improve the accuracy of our model in the second part of our project, in which we will use different supervised learning methods to determine the amount of new COVID-19 cases in a specific county. Additionally, we separated similar data points into clusters and used the elbow method to find the optimal clusters. 
 
 For the supervised portion, we compared the performance of ARIMA, LSTM, and Gradient Boosting in predicting the COVID cases for the past two weeks (11/22/2020 - 12/05/2020) and comparing those against the true number of cases. 
 
-And, similar models could be used to predict other major population-specific events, such as another pandemic, shortages in food or water, or similar occurrences, and better prepare for those when the time comes. 
+Being able to predict future COVID spikes would ideally facilitate an improvement in the response for affected areas. And, similar models could be used to predict other major population-specific events, such as another pandemic, shortages in food or water, or similar occurrences, and better prepare for those when the time comes. 
+
 ## Data Management
 We primarily used two different types of data: a county feature dataset (e.g. demographics) and a cumulative COVID case dataset (i.e. number of total cases per county per day)
 ### Feature Dataset
