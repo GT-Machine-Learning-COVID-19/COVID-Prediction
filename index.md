@@ -11,18 +11,27 @@ Being able to predict future COVID spikes would ideally facilitate an improvemen
 We primarily used two different types of data: a county feature dataset (e.g. demographics) and a cumulative COVID case dataset (i.e. number of total cases per county per day)
 ### Feature Dataset
 The first step for us was to create a complete dataset of potentially useful features for every county. Our goal was to include as many relevant features that we could find. We used Census data for county level information about the population at the county level. We determined that labor statistics about counties could potentially be a useful feature so we used Bureau of Labor Statistics data. We hypothesized that mask mandates could impact COVID-19 cases, so we used a publicly available mask mandate dataset. The dataset consists of short descriptions of all mandates in different regions. Finally, we used a dataset about general socioeconomic information about counties that we found publically available on Github. We then combined all of the features from the data found for our dataset, which organized all this data on a ocunty-by-county basis.
+
+![std_features df](/std_feat.png)
+
 ### COVID Case Dataset
 The second primary dataset we used was the Johns Hopkins CSSE COVID-19 Dataset. From this dataset, we were able to derive day-by-day cumulative COVID-19 cases from 3132 (all but 11) counties of the United States, dating back to the first US COVID case on 01/22/2020 to the present day.
 
 This dataset was primarily used for the supervised portion of the project, where we began tackling the regression problem of predicting future COVID cases based upon past data. To transform this dataset into a usable form for our supervised models, we created 10-day sliding windows. Essentially, a sliding window uses the previous n days as a feature space and the n+1th day as the label. The number of days was decided on a model-by-model basis
+
+![covid df](/covid_df.png)
+
 ### Data Cleaning
-We removed features from the datasets that were duplicates of each other after combining them, removed aggregations (i.e. many datasets had state level aggregations), and removed geographic information about each county. We also removed features or combined features that we knew were similar. For example, we combined multiple features about population composition into percent ethnic. After combining the different datasets, we ended up with a dataset with 17 features. For the mask mandate, it was very unstructured so we changed it to a binary encoding of 0 for no mask mandate and 1 for mask mandate. Finally, we removed any countries that had NaN as a value for any of the remaining features. This removal removed 11 of the 3243 counties in the United States, and we determined that this was an acceptable amount of counties to drop. Alternatively though we considered setting the NaNs to the mean value for each feature, but the 11 counties varied by a large margin in terms of population, so we decided against this.
+We removed features from the datasets that were duplicates of each other after combining them, removed aggregations (i.e. many datasets had state level aggregations), and removed geographic information about each county. We also removed features or combined features that we knew were similar. For example, we combined multiple features about population composition into percent ethnic. After combining the different datasets, we ended up with a dataset with 17 features. For the mask mandate, it was very unstructured so we changed it to a binary encoding of 0 for no mask mandate and 1 for mask mandate. Finally, we removed any countries that had NaN as a value for any of the remaining features. This removal removed 11 of the 3243 counties in the United States, and we determined that this was an acceptable amount of counties to drop. Alternatively, we considered setting the NaNs to the mean value for each feature, but the 11 counties varied by a large margin in terms of population, so we decided against this.
+
 # Unsupervised Learning
 ## Clustering
-*Motivations*
+**Motivations**
+
 We want to cluster similar counties together based on the features we gathered. As there are over 3,000 counties in the United States, being able to cluster similar counties into groups reduces the amount of models we will need to build during the next phase. Instead of predicting each county individually, we will predict cases on a cluster by cluster basis.. Our reasoning is that similar counties will have similar predictions (assuming that their cases are similar), and so it is viable to group them. Our aim is to cast a wide net of groups in order to capture a lot of types of counties, that way the predictions are more accurate later on.
 
-*Results and Implications*
+**Results and Implications**
+
 For clustering, we decided to cluster with the K-Means algorithm. The elbow method suggests that around 20 or so clusters would be “optimal”, but in our case, we aren’t necessarily trying to minimize clusters. Too few clusters and we run the risk of grouping together dissimilar counties, so we decided to go with a safer estimate of around 28 counties, as at this point the change in distortion became less than 100 per additional cluster.
 
 ![clustering](/elbow.png)
@@ -31,14 +40,16 @@ We found that after K=6, the K-Means algorithm will isolate singular counties in
 
 ## Data Analysis & Dimensionality Reduction
 ### Correlation Matrix
+
 We calculated the standard correlation coefficient (also referred to as Pearson’s r) between all the pairs of attributes using scikit-learn’s corr() method. The figure below summarises the result. 
 Overall, we were mostly interested with how much each attribute correlates with the mean of the time series data in the last 2 weeks. A summary of that result is shown below.
 
 ![correlation between covid and features](/covid_corr.png)
 
 As shown, the population in a county and the amount of international migration show a strong positive correlation with the average number of reported cases. This suggests that the average number of covid cases tends to go up in more populated areas. On the other hand, some features as the ‘Percent Under Diploma’ have almost no effect on covid reporting. Removing features as this might improve the accuracy of the future model. We repeated the process with standardised data. The correlation matrix is unaffected by standardisation of the data. 
+
 ### Principal Component Analysis
-*Motivations*
+**Motivations**
 Although there were 17 features in the socio-economic features dataset, we believed that Principal Component Analysis would serve as a useful tool to reduce the overall dimensionality of our dataset.
 Because many of our features are intuitively and mathematically related to one other, we felt that PCA would be a valuable form of unsupervised learning to run on our dataset. For example, logically speaking, population, migration, and birth rates may possibly be collapsed into one dimension, and mathematically speaking, there is almost a perfect correlation between housing density and population density (as seen in the correlation matrix between the features below). 
 
@@ -47,7 +58,7 @@ Because many of our features are intuitively and mathematically related to one o
 Therefore, there was value in running PCA to reduce the dimensionality of our overall dataset, which may improve the efficiency of our overall model during the supervised portion.
 Prior to running PCA, we standardized the data set (as unscaled data will likely be dominated by a single component). To run PCA, we used the built in functions included in the sklearn library. From there, we can determine the number of principal components compared to their respective explained variance. We can determine the relative importance of the features in each principal component using the magnitude of the corresponding values in the eigenvectors. The heatmaps are created using the seaborn library.
 
-*Results*
+**Results**
 
 ![% variance preserved](/variancemaintained.png)
 
@@ -115,7 +126,7 @@ In terms of the direction of our project, it may be important to take major metr
 # Supervised Learning Methods
 
 ## ARIMA Modeling
-*Introduction and Motivations*
+**Introduction and Motivations**
 ARIMA modeling is a classic technique for time series based data. These models rely on autocorrelations in the data to make a strong prediction for the data. It is always an excellent starting point because the models are simple to construct, but can be tricky to get an optimal model due to stationarity and autocorrelation constraints. 
 *Data Usage and Methods*
 ARIMA models require stationary data, which is data that has no cyclic behavior or trend and seasonality. Covid cases are acyclic in that there aren’t any major patterns of rising and falling cases within any of the clusters. There is however a strong upwards trend across all clusters, and so to remove this we differenced the data at various lags to lower the ACF (autocorrelation) plots. Below is the ACF for the first cluster before (on the left) and after differencing (on the right). 
@@ -131,7 +142,7 @@ We used the Hyndman-Khandakar algorithm for fitting each ARIMA model, which is a
 
 The residuals are centered around zero which is good, and the variance is relatively stable, though slightly skewed towards the right. We think this is due to the large number of days with zero cases at the beginning of the time series. Overall, however, the residual assumptions are decent and the model is successful.
 
-*Results and implications*
+**Results and implications**
 
 The model parameters for each cluster are as follows:
 ![params](/sup4.png)
@@ -157,17 +168,17 @@ This allows for the LSTM to be well suited for sequential data such as video and
 
 We realized that COVID-19 cases and deaths are sequence dependent, and researched different supervised learning techniques for time series data. We found that the LSTM RNN was a very effective and frequently used way to take into consideration previous timesteps, so we decided on trying to use it to predict future COVID-19 deaths.
 
-*Data Usage and Methods*
+**Data Usage and Methods**
 Originally, we had planned on creating a multivariate LSTM RNN as we believed this would be the most effective way to capture . However, we realized that for the multivariate LSTM we would need time series data for all of our features. We ultimately decided on creating a univariate LSTM model as we concluded that trying to find time series data for all of the features would be very difficult. Additionally, we knew that the features would be reflected in our clustering, and so we decided we would create a model for each cluster instead, in addition to creating a model for all the data. 
 
 For the LSTM, in addition to the data cleaning and sanitization that was done previously within the unsupervised learning portion, we normalized the data between 0 and 1. We realized that as opposed to creating a regular LSTM or a bi-directional LSTM, that a stacked LSTM would be the most optimal, as having multiple layers vertically stacked would allow for more model complexity.
 
-*Hyperparameter Tuning*
+**Hyperparameter Tuning**
 
 When creating the LSTM, we had read online that adding dropout to our LSTM layers would help prevent overfitting. Typically, the dropout amount for each layer is 0.1 or 0.2 based on literature that we found online. However, when we added dropout, the RMSE scores more than tripled on average so we opted to remove the dropout. We decided on having four layers for our LSTM, as having fewer than four layers increased the error scores, and above four the improvements are nonexistent.
 
 
-*Results and implications*
+**Results and implications**
 
 The results of the LSTM RMSE and MAE data indicate that our LSTM Recurrent Neural Network model is ineffective or inaccurate. Considering that the LSTM is a very common and effective RNN for time-series data, it is indicative that we did not tune the hyperparameters correctly, or did not have adequate data. A graph of the LSTM model and its prediction that uses the whole dataset is pictured below.
 
@@ -176,7 +187,8 @@ The results of the LSTM RMSE and MAE data indicate that our LSTM Recurrent Neura
 Similar to the ARIMA model, we predicted the past 14 days with this model, and observed a RMSE of 40169.25 for the general model, and an average RMSE of 36706.69 for models created for every one of the 28 clusters generated with the KMeans algorithm used in the unsupervised learning portion. The MAE for the general model was 30959.34 and the average for the cluster models was 25432.09.  It is important to note though that it was an improvement from the baseline RMSE of almost 129,000, but is significantly more than the RMSEs for the ARIMA models and Gradient Boosting models.
 
 ## Gradient Boosting
-*Introduction and Motivations*
+**Introduction and Motivations**
+
 Gradient boosting is an iterative machine learning algorithm used for regression and classification tasks (prediction of future COVID cases given current covid cases is a regression problem). Its strength lies in iteratively creating weak learners (often decision trees) and tuning feature importance after each iteration to create stronger and stronger learners. The way the additive model does this is by greedily minimizing the loss function of a base learner on a training set. Eventually, all trees are combined into one complete strong model.
 
 We felt gradient boosting would be a good option for our problem space not only because of its ability to solve regression-type problems but also due to the results of data analysis PCA in the previous section. Based on the results of these sections, it could be concluded that several of the features in our feature space would be less relevant in creating our supervised models. Thus, by using gradient boosting, we would be able to phase out several of these less relevant features and create a more pure and accurate model. At the same time, this ensured that we would not need to cut out features or dimensions completely, losing out on information on our data.
@@ -187,7 +199,8 @@ While this reasoning ended up not being incorrect (see Data Usage and Methods se
 
 ![feature_imp2](/sup8.png)
 
-*Data Usage and Methods*
+**Data Usage and Methods**
+
 Since this is a regression type problem, the first step for preparing the data was the addition of sliding windows as described in part 1 of this paper. There is no point in standardizing the data, as gradient boosting uses trees and trees are agnostic to standardized values.
 
 In an early iteration of our model, we discovered that the county demographic features had little to no impact on the model. In the feature importance plots (examples of which are displayed above), county demographic features were consistently ranked as the bottom features in predicting the next day’s COVID cases. So, we moved forward with our model with only the sliding window data.
@@ -197,11 +210,13 @@ After completing this ‘standard’ gradient boosting model that generally work
 For the first method, we created a set of 6 models, each of which predicts future COVID cases based upon the 6 National Center for Health Statistics 2013 Urban-Rural Classification codes. The primary motivation for doing so was due to the model not working very well for small-population, incredibly rural counties.
 
 ![maui county](/sup9.png)
+
 Maui County (FIPS = 150009) COVID-19 cases with the Urban Rural code of 4
 
 For the second method, we created a set of 28 models, each of which predicts future COVID cases for one of the 28 clusters from the unsupervised learning portion. Both methods led to an improvement in the predictive power of the model.
 
-*Hyperparameter Tuning*
+**Hyperparameter Tuning**
+
 To find hyperparameters for the standard model, we employed an iterative method of testing values for hyperparameters within a range until the one with the best was selected, similar to how the best window size was selected for.
 
 Before employing this method, to come up with initial approximate hyperparameters that were close to the ideal values for gradient boosting, we used hyperopt, which is essentially an optimizer that minimizes/maximizes any function. How it works it that it takes an input space of hyperparameters and gradually optimizes based on past results towards more ideal hyperparameters. Using this package provided a good baseline for us to start from.
@@ -217,7 +232,8 @@ While for the urban-rural grouping we only adjusted subsample, for the cluster g
 ![clusters](/sup13.png)
 * 70 estimators was chosen with the elbow rule: on the standard mode, the test RMSE began flattening out and having negligible change around 70 estimators.
 
-*Results and implications*
+**Results and implications**
+
 Overall, the results indicated great promise for our gradient boosting model. While we used RMSE as the objective function evaluation method for the creation of the model, we did not use this as the primary metric to determine the efficacy of the model. Instead, for each county for each day, we input the past 10-day COVID data and compared it against the true value of the COVID cases for that day. With the standard model, we were able to achieve a RMSE of 1586 and a MAE of 5.50 over 300+ days of COVID data. With the urban rural models and cluster models, we were able to achieve a RMSE of 1305 and 1463 and a MAE of 4.14 and 3.03, respectively. In context, this indicates that our model is only off by ~1500 cases for the entire lifespan of COVID, and is on average off by ~5 cases when predicting one day ahead.
 
 Identical to the ARIMA model, we predicted the past 14 days on this model (11/22 - 12/05) and observed a RMSE of 872.6351131275891, 962.2865918394436, and 1081.2541614145837 for the respective standard model, urban rural models, and cluster models. Contextualized, this indicates that the gradient boosting models were off by ~900 cases for every single county in America across 14 days, much better than the baseline RMSE of almost 129,000 (see conclusion).
