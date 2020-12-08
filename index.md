@@ -71,7 +71,7 @@ Prior to running PCA, we standardized the data set (as unscaled data will likely
 % Variance preserved by Principal Component
 1. *24.97*531181876283% of variance explained by 1 principal component
 2. *43.81*650907804699% of variance explained by 2 principal components
-3. *53.10i*025449664428% of variance explained by 3 principal components
+3. *53.10*025449664428% of variance explained by 3 principal components
 4. *61.77*9260440099335% of variance explained by 4 principal components
 5. *68.39*923510837932% of variance explained by 5 principal components
 6. *74.63*354311471619% of variance explained by 6 principal components
