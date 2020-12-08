@@ -261,7 +261,7 @@ Overall, the results indicated great promise for our gradient boosting model. Wh
 
 Identical to the ARIMA model, we predicted the past 14 days on this model (11/22 - 12/05) and observed a RMSE of 872.6351131275891, 962.2865918394436, and 1081.2541614145837 for the respective standard model, urban rural models, and cluster models. Contextualized, this indicates that the gradient boosting models were off by ~900 cases on average in America across 14 days.
 
-While the above results should be sufficient evidence that the model performs at a solid level, to confirm that these results are truly representative, we created our model using 10-fold validation (splitting the data up into 10 sections, and training on 9 parts and testing on the remaining part 10 times over), a method that was corroborated by other COVID predictive models [8]. These results are only for the standard model, but as the urban rural and cluster set models were both loosely based around the standard model, these results confirm that our model in particular does not experience abnormal results. There may be a worry with overfitting, as the model training score is much lower than the corresponding cross validation score.
+While the above results should be sufficient evidence that the model performs at a solid level, to confirm that these results are truly representative, we created our model using 10-fold validation (splitting the data up into 10 sections, and training on 9 parts and testing on the remaining part 10 times over), a method that was corroborated by other COVID predictive models [13]. These results are only for the standard model, but as the urban rural and cluster set models were both loosely based around the standard model, these results confirm that our model in particular does not experience abnormal results. There may be a worry with overfitting, as the model training score is much lower than the corresponding cross validation score.
 
 ![kfold](/sup14.png)
 
@@ -289,4 +289,40 @@ On a per-cluster basis, ARIMA models had the lowest RMSE overall, However, there
 The ARIMA models worked well over clusters but often fell short for individual counties due to stationarity constraints. Therefore, overall, gradient boosting was the best model for predicting COVID cases on a per-county basis with an average RMSE of approximately 900 for the models generated there, however, there is value in using ARIMA models for clusters that include many of the smaller counties of the United States. 
 
 # Works Cited
-TODO LATER
+
+[1] "United States Coronavirus Cases," WorldoMeters, Accessed Oct 1, 2020. [Online] Available: https://www.worldometers.info/coronavirus/country/us/
+
+[2] M. R. Mahmoudi, M. H. Heydari, S. N. Qasem, A. Mosavi, S. S. Bandh, "Principal component analysis to study the relations between the spread rates of COVID-19 in high risks countries" ScienceDirect, Sept 14, 2020. Available: https://doi.org/10.1016/j.aej.2020.09.013
+
+[3] F. Shahid, A. Zameer, M. Muneeb, "Predictions for COVID-19 with deep learning models of LSTM, GRU and Bi-LSTM." ScienceDirect, Aug 19, 2020. Available: https://doi.org/10.1016/j.chaos.2020.110212
+
+[4] Hota, H. S., Richa Handa, and A. K. Shrivas. "Time series data prediction using sliding window based rbf neural network." International Journal of Computational Intelligence Research 13.5 (2017): 1145-1156. Available: http://www.ripublication.com/ijcir17/ijcirv13n5_46.pdf
+
+[5] S. Hussein, "A Two-Layer Water Demand Prediction System in Urban Areas Based on Micro-Services and LSTM Neural Networks" ResearchGate, Aug 2020, DOI: 10.1109/ACCESS.2020.3015655 Available: https://www.researchgate.net/publication/343560899_A_Two-Layer_Water_Demand_Prediction_System_in_Urban_Areas_Based_on_Micro-Services_and_LSTM_Neural_Networks
+
+[6] Agarwal, Rahul. “Automate Hyperparameter Tuning for Your Models.” Medium, 1 Dec. 2020, https://towardsdatascience.com/automate-hyperparameter-tuning-for-your-models-71b18f819604.
+
+[7]---. “Using Gradient Boosting for Time Series Prediction Tasks.” Medium, 11 Sept. 2020, https://towardsdatascience.com/using-gradient-boosting-for-time-series-prediction-tasks-600fac66a5fc.
+
+[8] Brownlee, Jason. “How to Create an ARIMA Model for Time Series Forecasting in Python.” Machine Learning Mastery, 8 Jan. 2017, https://machinelearningmastery.com/arima-for-time-series-forecasting-with-python/.
+
+[9] ---. “Time Series Forecasting as Supervised Learning.” Machine Learning Mastery, 4 Dec. 2016, https://machinelearningmastery.com/time-series-forecasting-supervised-learning/.
+
+[10] County FIPS Codes | NRCS. https://www.nrcs.usda.gov/wps/portal/nrcs/detail/national/home/?cid=nrcs143_013697. Accessed 8 Dec. 2020.
+
+[11] Data Access - Urban Rural Classification Scheme for Counties. 2 Dec. 2019, https://www.cdc.gov/nchs/data_access/urban_rural.htm.
+
+[12] Flovik, Vegard. “How (Not) to Use Machine Learning for Time Series Forecasting: Avoiding the Pitfalls.” Medium, 29 Sept. 2020, https://towardsdatascience.com/how-not-to-use-machine-learning-for-time-series-forecasting-avoiding-the-pitfalls-19f9d7adf424.
+
+[13] Gumaei, Abdu, et al. “Prediction of COVID-19 Confirmed Cases Using Gradient Boosting Regression Method.” Computers, Materials & Continua, vol. 66, no. 1, 2020, pp. 315–29. DOI.org (Crossref), doi:10.32604/cmc.2020.012045.
+
+[14] Laurae. “Xgboost: ‘Hi I’m Gamma. What Can I Do for You?’ — And the Tuning of Regularization.” Medium, 3 Jan. 2017, https://medium.com/data-design/xgboost-hi-im-gamma-what-can-i-do-for-you-and-the-tuning-of-regularization-a42ea17e6ab6.
+
+[15] “Predictions for COVID-19 with Deep Learning Models of LSTM, GRU and Bi-LSTM.” Chaos, Solitons & Fractals, vol. 140, Nov. 2020, p. 110212. www.sciencedirect.com, doi:10.1016/j.chaos.2020.110212.
+
+[16] Ratschat, Jonathan. “Getting to a Hyperparameter-Tuned XGBoost Model in No Time.” Medium, 22 Sept. 2020, https://towardsdatascience.com/getting-to-an-hyperparameter-tuned-xgboost-model-in-no-time-a9560f8eb54b.
+
+[17] Singh, Harshdeep. “Understanding Gradient Boosting Machines.” Medium, 4 Nov. 2018, https://towardsdatascience.com/understanding-gradient-boosting-machines-9be756fe76ab.
+
+[18] Spark, Cambridge. “Hyperparameter Tuning in XGBoost.” Medium, 23 Dec. 2019, https://blog.cambridgespark.com/hyperparameter-tuning-in-xgboost-4ff9100a3b2f.
+
