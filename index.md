@@ -148,6 +148,7 @@ ARIMA modeling is a classic technique for time series based data. These models r
 **Data Usage and Methods**
 
 ARIMA models require stationary data, which is data that has no cyclic behavior or trend and seasonality. Covid cases are acyclic in that there aren’t any major patterns of rising and falling cases within any of the clusters. There is however a strong upwards trend across all clusters, and so to remove this we differenced the data at various lags to lower the ACF (autocorrelation) plots. Below is the ACF for the first cluster before (on the left) and after differencing (on the right). 
+
 ![ACF](/sup1.png) ![ACF2](/sup2.png)
 
 Before differencing, there is an extreme correlation at nearly every lag, implying our data is not stationary. After differencing the data twice, the ACF plot looks much better. You will notice a very large spike at lag 1 in the ACF plot, which is due to the fact that there are a significant number of days with zero cases at the beginning of the time series, and also indicates that there still might be a slight trend. However, this isn’t as much of a problem because ARIMA models of first-order and above are able to handle slight trends in the data as long as there isn’t any seasonality. And, a Box-Ljung test gives a good p-value which indicates the residuals are independent.
