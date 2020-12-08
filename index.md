@@ -38,24 +38,30 @@ For clustering, we decided to cluster with the K-Means algorithm. The elbow meth
 
 We found that after K=6, the K-Means algorithm will isolate singular counties into their own clusters. For example, after K=7, New York City is always placed into its own cluster. This brings some challenges for PCA, which requires N > 1 to run, but on its own isn’t a bad thing. New York being as big as it is likely deserves its own model in order to get an accurate prediction. 
 
+These clusters would prove to be incredibly useful moving into the supervised learning portion, as they allowed us to group similar counties and create models based upon individual clusters, rather than every county at once.
+
 ## Data Analysis & Dimensionality Reduction
 ### Correlation Matrix
 
 We calculated the standard correlation coefficient (also referred to as Pearson’s r) between all the pairs of attributes using scikit-learn’s corr() method. The figure below summarises the result. 
+
 Overall, we were mostly interested with how much each attribute correlates with the mean of the time series data in the last 2 weeks. A summary of that result is shown below.
 
 ![correlation between covid and features](/covid_corr.png)
 
-As shown, the population in a county and the amount of international migration show a strong positive correlation with the average number of reported cases. This suggests that the average number of covid cases tends to go up in more populated areas. On the other hand, some features as the ‘Percent Under Diploma’ have almost no effect on covid reporting. Removing features as this might improve the accuracy of the future model. We repeated the process with standardised data. The correlation matrix is unaffected by standardisation of the data. 
+As shown, the population in a county and the amount of international migration show a strong positive correlation with the average number of reported cases. This suggests that the average number of covid cases tends to go up in more populated areas. On the other hand, some features as the ‘Percent Under Diploma’ have almost no effect on covid reporting. Removing features as this might improve the accuracy of the future model. We repeated the process with standardised data. The correlation matrix is unaffected by standardization of the data. 
 
 ### Principal Component Analysis
 **Motivations**
+
 Although there were 17 features in the socio-economic features dataset, we believed that Principal Component Analysis would serve as a useful tool to reduce the overall dimensionality of our dataset.
+
 Because many of our features are intuitively and mathematically related to one other, we felt that PCA would be a valuable form of unsupervised learning to run on our dataset. For example, logically speaking, population, migration, and birth rates may possibly be collapsed into one dimension, and mathematically speaking, there is almost a perfect correlation between housing density and population density (as seen in the correlation matrix between the features below). 
 
 ![correlation matrix features](/feature_corr.png)
 
 Therefore, there was value in running PCA to reduce the dimensionality of our overall dataset, which may improve the efficiency of our overall model during the supervised portion.
+
 Prior to running PCA, we standardized the data set (as unscaled data will likely be dominated by a single component). To run PCA, we used the built in functions included in the sklearn library. From there, we can determine the number of principal components compared to their respective explained variance. We can determine the relative importance of the features in each principal component using the magnitude of the corresponding values in the eigenvectors. The heatmaps are created using the seaborn library.
 
 **Results**
@@ -63,22 +69,22 @@ Prior to running PCA, we standardized the data set (as unscaled data will likely
 ![% variance preserved](/variancemaintained.png)
 
 % Variance preserved by Principal Component
-1. 24.97531181876283% of variance explained by 1 principal component
-2. 43.81650907804699% of variance explained by 2 principal components
-3. 53.10025449664428% of variance explained by 3 principal components
-4. 61.779260440099335% of variance explained by 4 principal components
-5. 68.39923510837932% of variance explained by 5 principal components
-6. 74.63354311471619% of variance explained by 6 principal components
-7. 80.59120966493887% of variance explained by 7 principal components
-8. 85.30547132180237% of variance explained by 8 principal components
-9. 89.09401930472255% of variance explained by 9 principal components
-10. 92.56520391781005% of variance explained by 10 principal components
-11. 95.34320685151206% of variance explained by 11 principal components
-12. 97.20373271702995% of variance explained by 12 principal components
-13. 98.73608659408484% of variance explained by 13 principal components
-14. 99.9306372785805% of variance explained by 14 principal components
-15. 99.99017280188369% of variance explained by 15 principal components
-16. 99.99989896978461% of variance explained by 16 principal components
+1. *24.97*531181876283% of variance explained by 1 principal component
+2. *43.81*650907804699% of variance explained by 2 principal components
+3. *53.10i*025449664428% of variance explained by 3 principal components
+4. *61.77*9260440099335% of variance explained by 4 principal components
+5. *68.39*923510837932% of variance explained by 5 principal components
+6. *74.63*354311471619% of variance explained by 6 principal components
+7. *80.59*120966493887% of variance explained by 7 principal components
+8. *85.30*547132180237% of variance explained by 8 principal components
+9. *89.09*401930472255% of variance explained by 9 principal components
+10. *92.56*520391781005% of variance explained by 10 principal components
+11. *95.34*320685151206% of variance explained by 11 principal components
+12. *97.20*373271702995% of variance explained by 12 principal components
+13. *98.73*608659408484% of variance explained by 13 principal components
+14. **99.93**06372785805% of variance explained by 14 principal components
+15. **99.99**017280188369% of variance explained by 15 principal components
+16. **99.99**989896978461% of variance explained by 16 principal components
 
 95% of the variance is maintained at 11 components, 99% is maintained at about 13 components (minimum 14 components to maintain exactly 99% variance), and 99.99% is maintained at 15 components.
 
@@ -104,11 +110,14 @@ By principal component, the most important feature is:
 14. Percent with Only Diploma
 15. Percent Some College
 16. Death Rate
-17. An observation is that while population doesn’t define any single principal component, it heavily contributes to the first two principal components, which explain ~43% of the variance of the data set.
 
-Implications of PCA on only the feature dataset
+It can be observed that while population doesn’t define any single principal component, it heavily contributes to the first two principal components, which explain ~43% of the variance of the data set.
+
+**Implications of PCA on only the feature dataset**
+
 Running PCA allows us to reduce the dimensionality from 17 to 13, a reduction of 23.5% of dimensions while still maintaining 98.73% of the variance of the dataset.
 The first principal component was primarily explained by percent poverty levels, implying that percent poverty is a distinguishing factor between counties. Similarly, the population was a large factor in contributing to the first and second principal components, which makes sense, as more populous counties will naturally have a different makeup than smaller counties.
+
 After completing PCA on only the feature dataset, we realized that we had little intuition into why clusters were clustered as they were. So, to determine what features were most important to each cluster, we decided to run PCA once more on each cluster out of the 28. Since PCA only works when run on more than one county, the following results are for all of the clusters which contain multiple counties. We decided to employ a similar strategy as to how we interpreted the principal components for the overall feature dataset by listing the feature that contributed most to the first three principal components of each cluster.
 
 ![top 3 per pc per cluster](/top_3.png)
@@ -116,19 +125,28 @@ After completing PCA on only the feature dataset, we realized that we had little
 Overall, only 4 features on this chart show up multiple times, which are: Mask Mandate, Percent Poverty, Percent Ethnic, and Population, implying that these four features are likely the most important ones in the dataset when it comes to contributing to the variance within clusters of counties. While we originally anticipated that clusters would be defined by unique and different features, this result makes sense as well — from PCA run on all of the counties, it was evident that most of the feature space was relevant somehow to the variance of the dataset (99% variance was not attained until 14 features). Therefore, while these four features showed up the most in terms of being the highest contributor to the first three principal components, it must be acknowledged that the other features also play a significant role in the variance of the dataset and our clusters as a whole.
  
 It was mentioned earlier that some clusters were skipped as they were singleton clusters (clusters with only one county) that could not support PCA. Those counties revolved around the regions of:
+
 11: Los Angeles, CA
+
 19: New York City, NY
+
 20: Maricopa, AZ (Phoenix + Tucson)
+
 24: Cook County, IL (Chicago)
+
 From a pure qualitative standpoint, these four counties are defined by their status as major metropolitan areas. In fact, LA County, Maricopa County, and Cook County are the 1st, 2nd, and 4th largest counties by population in the entire United States.
-In terms of the direction of our project, it may be important to take major metropolitan areas or unique singleton counties like these into special consideration when making our final model.
+
+Moving into the supervised learning portion, we kept this knowledge in mind and created cluster-specific models in some instances, which improved performance most of the time.
 
 # Supervised Learning Methods
 
 ## ARIMA Modeling
 **Introduction and Motivations**
+
 ARIMA modeling is a classic technique for time series based data. These models rely on autocorrelations in the data to make a strong prediction for the data. It is always an excellent starting point because the models are simple to construct, but can be tricky to get an optimal model due to stationarity and autocorrelation constraints. 
-*Data Usage and Methods*
+
+**Data Usage and Methods**
+
 ARIMA models require stationary data, which is data that has no cyclic behavior or trend and seasonality. Covid cases are acyclic in that there aren’t any major patterns of rising and falling cases within any of the clusters. There is however a strong upwards trend across all clusters, and so to remove this we differenced the data at various lags to lower the ACF (autocorrelation) plots. Below is the ACF for the first cluster before (on the left) and after differencing (on the right). 
 ![ACF](/sup1.png) ![ACF2](/sup2.png)
 
@@ -145,7 +163,9 @@ The residuals are centered around zero which is good, and the variance is relati
 **Results and implications**
 
 The model parameters for each cluster are as follows:
+
 ![params](/sup4.png)
+
 You will notice that the d parameter, the number of lagged differences required for stationarity, is 2 for every model, which makes sense since we differenced the data twice before building the models.
 
 In regards to accuracy, we tested the models on the last 14 days of data. On average, across all clusters, the RMSE was 750.62. Below a box plot showing the distribution of RMSE.
@@ -159,7 +179,8 @@ You will notice that there are 4 outliers with quite large RMSE. These were clus
 As the average RMSE per cluster for a baseline of predicting the previous day’s COVID cases for all 14 days was 4,600 (using the same methodology as outlined in the conclusion per cluster), the ARIMA models were effective in predicting COVID Cases.
 
 ## LSTM
-*Introduction and Motivations*
+**Introduction and Motivations**
+
 LSTM is a modified version of Recurrent Neural Network that resolves the vanishing gradient problem by allowing the possibility for the gradient to flow back unchanged. LSTM is capable of doing so by replacing the hidden layers of a Recurrent Neural Network with memory cells. The LSTM cells have an input gate (It), an output gate (Ot), a forget gate (Ft), and an activation function that allow it to learn the behavior of temporal correlations.
 
 ![activation func](/sup6.5.png)
@@ -189,7 +210,7 @@ Similar to the ARIMA model, we predicted the past 14 days with this model, and o
 ## Gradient Boosting
 **Introduction and Motivations**
 
-Gradient boosting is an iterative machine learning algorithm used for regression and classification tasks (prediction of future COVID cases given current covid cases is a regression problem). Its strength lies in iteratively creating weak learners (often decision trees) and tuning feature importance after each iteration to create stronger and stronger learners. The way the additive model does this is by greedily minimizing the loss function of a base learner on a training set. Eventually, all trees are combined into one complete strong model.
+Gradient boosting is an iterative machine learning algorithm used for regression and classification tasks (prediction of future COVID cases given current COVID cases is a regression problem). Its strength lies in iteratively creating weak learners (often decision trees) and tuning feature importance after each iteration to create stronger and stronger learners. The way the additive model does this is by greedily minimizing the loss function of a base learner on a training set. Eventually, all trees are combined into one complete strong model.
 
 We felt gradient boosting would be a good option for our problem space not only because of its ability to solve regression-type problems but also due to the results of data analysis PCA in the previous section. Based on the results of these sections, it could be concluded that several of the features in our feature space would be less relevant in creating our supervised models. Thus, by using gradient boosting, we would be able to phase out several of these less relevant features and create a more pure and accurate model. At the same time, this ensured that we would not need to cut out features or dimensions completely, losing out on information on our data.
 
@@ -201,7 +222,7 @@ While this reasoning ended up not being incorrect (see Data Usage and Methods se
 
 **Data Usage and Methods**
 
-Since this is a regression type problem, the first step for preparing the data was the addition of sliding windows as described in part 1 of this paper. There is no point in standardizing the data, as gradient boosting uses trees and trees are agnostic to standardized values.
+Since this is a regression type problem, the first step for preparing the data was the addition of sliding windows as described in part 1 of this paper. A window size of 10 was selected as the best window size after iteratively testing window sizes of 5 through 15. There is no point in standardizing the data, as gradient boosting uses trees and trees are agnostic to standardized values.
 
 In an early iteration of our model, we discovered that the county demographic features had little to no impact on the model. In the feature importance plots (examples of which are displayed above), county demographic features were consistently ranked as the bottom features in predicting the next day’s COVID cases. So, we moved forward with our model with only the sliding window data.
 
@@ -213,7 +234,7 @@ For the first method, we created a set of 6 models, each of which predicts futur
 
 Maui County (FIPS = 150009) COVID-19 cases with the Urban Rural code of 4
 
-For the second method, we created a set of 28 models, each of which predicts future COVID cases for one of the 28 clusters from the unsupervised learning portion. Both methods led to an improvement in the predictive power of the model.
+For the second method, we created a set of 28 models, each of which predicts future COVID cases for one of the 28 clusters from the unsupervised learning portion. Both methods led to an improvement in the predictive power of the model on a day-by-day predictive basis.
 
 **Hyperparameter Tuning**
 
@@ -227,18 +248,20 @@ From there, we simply tested the hyperparameters in a range around the hyperopt 
 For the urban-rural grouping and the cluster groupings, we used the same hyperparameter set for each method, and primarily focused on reducing the randomness of the hyperparameters. This primarily included adjusting the subsample and the learning rate. The reasoning behind this was because due to these county-level divisions, each model is dealing with less, more purified data, meaning that subsample, the proportion of number of features used for a given iteration, should be more, as there is a higher chance of losing out on critical information (as opposed to a higher chance of overfitting for the standard model). 
 
 While for the urban-rural grouping we only adjusted subsample, for the cluster groupings, we took it a step further and increased the learning rate as well. As the sets of counties are even smaller and purer now, we felt more secure increasing this hyperparameter as the risk of overfitting is less.
+
 ![standard](/sup11.png)
 ![ur](/sup12.png)
 ![clusters](/sup13.png)
-* 70 estimators was chosen with the elbow rule: on the standard mode, the test RMSE began flattening out and having negligible change around 70 estimators.
+
+*70 estimators was chosen with the elbow rule: on the standard mode, the test RMSE began flattening out and having negligible change around 70 estimators.*
 
 **Results and implications**
 
-Overall, the results indicated great promise for our gradient boosting model. While we used RMSE as the objective function evaluation method for the creation of the model, we did not use this as the primary metric to determine the efficacy of the model. Instead, for each county for each day, we input the past 10-day COVID data and compared it against the true value of the COVID cases for that day. With the standard model, we were able to achieve a RMSE of 1586 and a MAE of 5.50 over 300+ days of COVID data. With the urban rural models and cluster models, we were able to achieve a RMSE of 1305 and 1463 and a MAE of 4.14 and 3.03, respectively. In context, this indicates that our model is only off by ~1500 cases for the entire lifespan of COVID, and is on average off by ~5 cases when predicting one day ahead.
+Overall, the results indicated great promise for our gradient boosting model. While we used RMSE as the objective function evaluation method for the creation of the model, we did not use this as the primary metric to determine the efficacy of the model. Instead, for each county for each day, we input the past 10-day COVID data and compared it against the true value of the COVID cases for that day. With the standard model, we were able to achieve a RMSE of 1586 and a MAE of 5.50 over 300+ days of COVID data. With the urban rural models and cluster models, we were able to achieve a RMSE of 1305 and 1463 and a MAE of 4.14 and 3.03, respectively. In context, this indicates that our model is only off by ~1500 cases for the entire lifespan of COVID per county, and is on average off by ~5 cases per county when predicting one day ahead. (*this metric is different than the standard metric used to measure all of our supervised models*)
 
-Identical to the ARIMA model, we predicted the past 14 days on this model (11/22 - 12/05) and observed a RMSE of 872.6351131275891, 962.2865918394436, and 1081.2541614145837 for the respective standard model, urban rural models, and cluster models. Contextualized, this indicates that the gradient boosting models were off by ~900 cases for every single county in America across 14 days, much better than the baseline RMSE of almost 129,000 (see conclusion).
+Identical to the ARIMA model, we predicted the past 14 days on this model (11/22 - 12/05) and observed a RMSE of 872.6351131275891, 962.2865918394436, and 1081.2541614145837 for the respective standard model, urban rural models, and cluster models. Contextualized, this indicates that the gradient boosting models were off by ~900 cases on average in America across 14 days.
 
-While the above results should be sufficient evidence that the model performs at a solid level, to confirm that these results are truly representative, we created our model using 10-fold validation (splitting the data up into 10 sections, and training on 9 parts and testing on the remaining part 10 times over), a method that was corroborated by other COVID predictive models. These results are only for the standard model, but as the urban rural and cluster set models were both loosely based around the standard model, these results confirm that our model in particular does not experience abnormal results. There may be a worry with overfitting, as the model training score is much lower than the corresponding cross validation score.
+While the above results should be sufficient evidence that the model performs at a solid level, to confirm that these results are truly representative, we created our model using 10-fold validation (splitting the data up into 10 sections, and training on 9 parts and testing on the remaining part 10 times over), a method that was corroborated by other COVID predictive models [8]. These results are only for the standard model, but as the urban rural and cluster set models were both loosely based around the standard model, these results confirm that our model in particular does not experience abnormal results. There may be a worry with overfitting, as the model training score is much lower than the corresponding cross validation score.
 
 ![kfold](/sup14.png)
 
@@ -246,7 +269,7 @@ To help visualize these predictions and have an actual deliverable product for o
 
 ![site](/sup15.png)
 
-Several limitations of this model include the data it was trained on. The metric with which we are measuring our supervised models is the RMSE for the next 14 days, indicating that the model’s labels should have been for the 14 days after the window. However, we experimented with this larger target size, and it simply took too long for the model to be created, and we were unable to allocate the necessary resources in tuning hyperparameters and refining this model. We are curious as to if this changed label would improve this model.
+Several limitations of this model include the data it was trained on. The metric with which we are measuring our supervised models is the RMSE for the next 14 days, indicating that the model’s labels should have been set for the 14 days after the window. However, we experimented a larger label size of 7-day predictions, and it simply took too long for the model to be created, and we were unable to allocate the necessary resources in tuning hyperparameters and refining this model. We are curious as to if this changed label would improve this model.
 
 Off of this, while we attempted to adjust hyperparameters to minimize overfitting as much as possible, overfitting is likely still an issue on our model, especially for the urban-rural and cluster models. As the 14-day projection indicates, the standard model performs better than either, which likely means that the higher specificity models overfit. Additionally, while literature supported the use of k fold cross-validation in this type of problem, it would also be valuable to use time-sensitive forms of validation, like forward-chaining.
 
@@ -261,9 +284,9 @@ Here are the overall results:
 
 ![results](/results.png)
 
-On a per-cluster basis, ARIMA models had the lowest RMSE overall, However, there were several outliers for RMSE, particularly for the larger clusters with larger counties, which are arguably the most important ones. For clusters with smaller populations, i.e. smaller counties, the ARIMA model suggests promising results with an RMSE of 750.62. The LSTM models performed the worst for the per cluster average RMSE, with an average of 36706.69. This is indicative 
+On a per-cluster basis, ARIMA models had the lowest RMSE overall, However, there were several outliers for RMSE, particularly for the larger clusters with larger counties, which are arguably the most important ones. For clusters with smaller populations, i.e. smaller counties, the ARIMA model suggests promising results with an RMSE of 750.62. The LSTM models performed the worst for the per cluster average RMSE, with an average of 36706.69. This is indicative that the hyperparameters were not tuned correctly or the model was deployed incorrectly. As it was our first time using Keras and utilizing an LSTM model the latter is the more likely case.
 
-The ARIMA models worked well over clusters but often fell short for individual counties due to stationarity constraints. Therefore, overall, gradient boosting was the best model for predicting COVID cases on a per-county basis with a cumulative RMSE of approximately 900 for the models generated there. 
+The ARIMA models worked well over clusters but often fell short for individual counties due to stationarity constraints. Therefore, overall, gradient boosting was the best model for predicting COVID cases on a per-county basis with an average RMSE of approximately 900 for the models generated there, however, there is value in using ARIMA models for clusters that include many of the smaller counties of the United States. 
 
 # Works Cited
 TODO LATER
