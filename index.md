@@ -309,7 +309,7 @@ The ARIMA models worked well over clusters but often fell short for individual c
 
 [9] ---. “Time Series Forecasting as Supervised Learning.” Machine Learning Mastery, 4 Dec. 2016, https://machinelearningmastery.com/time-series-forecasting-supervised-learning/.
 
-[10] County FIPS Codes | NRCS. https://www.nrcs.usda.gov/wps/portal/nrcs/detail/national/home/?cid=nrcs143_013697. Accessed 8 Dec. 2020.
+[10] County FIPS Codes NRCS. https://www.nrcs.usda.gov/wps/portal/nrcs/detail/national/home/?cid=nrcs143_013697. Accessed 8 Dec. 2020.
 
 [11] Data Access - Urban Rural Classification Scheme for Counties. 2 Dec. 2019, https://www.cdc.gov/nchs/data_access/urban_rural.htm.
 
@@ -327,3 +327,8 @@ The ARIMA models worked well over clusters but often fell short for individual c
 
 [18] Spark, Cambridge. “Hyperparameter Tuning in XGBoost.” Medium, 23 Dec. 2019, https://blog.cambridgespark.com/hyperparameter-tuning-in-xgboost-4ff9100a3b2f.
 
+[19] CSSEGISandData. CSSEGISandData/COVID-19. 2020. 2020. GitHub, https://github.com/CSSEGISandData/COVID-19.
+
+[20] “Earliestpolicy_08042020.Xlsx.” Google Docs, https://drive.google.com/file/d/1qVIhPaBQ-apdDjOaKV2eA9SgZNkLMLAm/view?usp=embed_facebook. Accessed 8 Dec. 2020.
+
+[21] Population in the U.S. - Google Public Data Explorer. https://www.google.com/publicdata/explore?ds=kf7tgg1uo9ude_&hl=en&dl=en. Accessed 8 Dec. 2020.
